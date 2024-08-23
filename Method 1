@@ -1,0 +1,43 @@
+#include <stdio.h>
+
+int min(int a, int b){
+    if(a<b) return a; return b; } int max(int a, int b){ if(a>b)
+        return a;
+        
+    return b;
+}
+
+int maxWater(int arr[], int n)
+{
+    int res = 0;
+
+    for (int i = 1; i < n-1; i++) {
+
+      // Find the maximum element on its left
+      int left = arr[i];
+      for (int j=0; j<i; j++)
+        left = max(left, arr[j]);
+
+      // Find the maximum element on its right 
+      int right = arr[i];
+      for (int j=i+1; j<n; j++)
+        right = max(right, arr[j]);
+
+      // Update the maximum water 
+     res = res + (min(left, right) - arr[i]); 
+   }
+
+  return res;
+}
+
+// Driver code
+int main()
+{
+  
+   int arr[] = {3, 0, 2, 0, 4};
+   int n = sizeof(arr)/sizeof(arr[0]);
+   
+   printf("%d ", maxWater(arr, n));
+
+   return 0;
+}
